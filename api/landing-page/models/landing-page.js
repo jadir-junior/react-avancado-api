@@ -5,4 +5,12 @@
  * to customize this model
  */
 
-module.exports = {};
+const axios = require('axios');
+
+module.exports = {
+  lifecycles: {
+    async afterUpdate() {
+      process.env.NETLIFY_WEBHOOK && axios.post(process.env.NETLIFY_WEBHOOK);
+    },
+  },
+};
